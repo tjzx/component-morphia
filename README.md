@@ -6,42 +6,22 @@
 
 
 ```java
-package com.issun.component.morphia;
+package com.issun.component.morphia.bean;
 
-import com.issun.component.morphia.bean.Dept;
+import org.mongodb.morphia.annotations.Entity;
 
-public class DeptDAOImpl extends MongoDbBaseTemplate<Dept> implements DeptDAO {
+@Entity(noClassnameStored = true)
+public class Dept extends BeanEntity{
 	
-	private static String DATASTORE_ALIAS ="orgDb";
+	private String name;
 	
-	public DeptDAOImpl(){
-		
-		this.setBeanClass(Dept.class);
-		this.initDatastore(DATASTORE_ALIAS);
+	public String getName() {
+		return name;
 	}
-
-	public boolean save(Dept dept) {
-		return this.commonSave(dept);
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public boolean update(Dept dept){
-		return this.commonUpdate(dept);
-	}
-
-	@Override
-	public boolean delete(String unid) {
-		return this.commonDelete(unid);
-	}
-
-	@Override
-	public Dept get(String unid) {
-		return this.commonGet(unid);
-	}
-	
-	
-
 }
-
 ```
 
 ## MongoDB配置
@@ -125,6 +105,5 @@ public class DeptDAOImpl extends MongoDbBaseTemplate<Dept> implements DeptDAO {
 - 删 ----》`commonDelete`(通过Unid进行删除)
 - 改 ----》`commonUpdate`
 - 查 ----》`commonGet`(通过Unid进行获取)
-
 
 
