@@ -1,9 +1,6 @@
-# 使用说明：
+对Morphia组件的封装旨在提供一套对Bean的CURD模板操作，这样可以加快开发速度，以及便于维护。
 
-## Bean对象
-
-要存储到MongoDb的Bean对象要继承BeanEntity对象(即：提供"unid"作为存储主键，并进行MongoDB默认主键"_id"的映射)
-
+**约束说明：** 这套CURD模板是基于Bean的`unid`(映射到默认的MongoDb主键`_id`)属性进行增删改查的，故要求Bean继承`BeanEntity`抽象类。例如：
 
 ```java
 package com.issun.component.morphia.bean;
@@ -24,7 +21,10 @@ public class Dept extends BeanEntity{
 }
 ```
 
-## MongoDB配置
+
+# 使用说明：
+
+## 配置文件
 
 提供一份配置文件mongodb.xml,例如
 
@@ -52,7 +52,7 @@ public class Dept extends BeanEntity{
 
 ```
 
-## DAO
+## DAO规范
 
 DAO的实现类要继承MongoDbBaseTemplate<T>抽象类，并在构造函数中进行相关值的设置及初始化，例如
 
@@ -99,7 +99,7 @@ public class DeptDAOImpl extends MongoDbBaseTemplate<Dept> implements DeptDAO {
 
 ## 额外说明
 
-`MongoDbBaseTemplate`抽象类提供相应的CURD方法：
+`MongoDbBaseTemplate<T>`抽象类提供相应的CURD方法：
 
 - 增 ----》`commonSave`
 - 删 ----》`commonDelete`(通过Unid进行删除)
