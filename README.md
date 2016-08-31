@@ -95,7 +95,7 @@ public class DeptDAOImpl extends MongoDbBaseTemplate<Dept> implements DeptDAO {
 }
 
 ```
-
+需要说明的是`DATASTORE_ALIAS`值是对应到mongodb.xml配置文件里面对应alias值的MongoDb配置.
 
 ## 额外说明
 
