@@ -1,7 +1,14 @@
 package com.issun.component.morphia.bean;
 
 
+/**
+ * MongoDB配置对象
+ * 
+ * @author ZHe
+ */
 public class MongoDBConfig {
+	
+    // ------------------------------------------------------- Static Variables
 
 	/**
 	 * 默认的端口号
@@ -12,6 +19,9 @@ public class MongoDBConfig {
 	 * 默认SOCKET超时时间
 	 */
 	public final static int DEFAULT_SOCKEY_TIMEOUT = 2000;
+	
+	
+    // ------------------------------------------------------- Instance Variables
 	
 	
 	/**
@@ -56,6 +66,7 @@ public class MongoDBConfig {
 	private MongoDBOptions options;
 	
 	
+    // ------------------------------------------------------- Public Methods
 	
 	/**
 	 * 返回配置的别名
@@ -160,9 +171,11 @@ public class MongoDBConfig {
 	public void setOptions(MongoDBOptions options) {
 		this.options = options;
 	}
+	
 	public boolean isNeedAuth() {
 		return needAuth;
 	}
+	
 	public void setNeedAuth(boolean needAuth) {
 		this.needAuth = needAuth;
 	}

@@ -14,31 +14,39 @@ import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 
 import com.issun.component.morphia.bean.BeanEntity;
-import com.issun.component.morphia.impl.XmlMongoDbConfigSource;
-import com.issun.component.morphia.interfaces.MongoDbConfigSource;
+import com.issun.component.morphia.pool.DatastorePool;
 import com.mongodb.WriteResult;
 
 /**
  * MongoDb CURD基础模板
  * @param <T>
+ * 
+ * @author ZHe
  */
 public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 	
+	
+    // ------------------------------------------------------- Static Variables
+	
 	/**
-	 * 默认主键
+	 * 默认主键名称
 	 */
 	private static final String DEFAULT_FIELD_UNID = "_id";
 	
+    // ------------------------------------------------------- Instance Variables
+	
 	/**
-	 * T类的字节码
+	 * 存储对象的字节码
 	 */
 	private Class<T> beanClass;
 	
 	/**
-	 * MongoDB连接池对象
+	 * MongoDb的“连接”
 	 */
 	private Datastore datastore;
 	
+	
+    // ------------------------------------------------------- Protected Methods
 	
 	
 	protected Class<T> getBeanClass() {
@@ -55,20 +63,10 @@ public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 	 * @param datastoreAlias
 	 */
 	protected void initDatastore(String datastoreAlias){
-		MongoDbConfigSource mongoDbConfigSource = XmlMongoDbConfigSource.getInstance();
-		initDatastore(datastoreAlias,mongoDbConfigSource);
+		DatastorePool mongoDBPool = DatastorePool.getInstance();
+		this.datastore = mongoDBPool.getDatastore(datastoreAlias);
 	}
 	
-	/**
-	 * 进行Mongo数据库的初始化(这种方式类似依赖注入,提供MongoDbConfig的数据源)
-	 * @param datastoreAlias
-	 * @param mongoDbConfigSource
-	 */
-	protected void initDatastore(String datastoreAlias,MongoDbConfigSource mongoDbConfigSource){
-		MongoDBPool mongoDBPool = MongoDBPool.getInstance(mongoDbConfigSource);
-		Datastore datastore = mongoDBPool.getDatastore(datastoreAlias);
-		this.datastore = datastore;
-	}
 	
 	/**
 	 * 通用保存
@@ -138,6 +136,9 @@ public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 		return (updateResults.getUpdatedCount() > 0);
 	}
 
+	
+    // ------------------------------------------------------- Private Methods
+	
 	/**
 	 * 构造更新域(field/Val列表)
 	 * @param beanObj

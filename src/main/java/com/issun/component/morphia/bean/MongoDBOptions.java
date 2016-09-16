@@ -1,6 +1,15 @@
 package com.issun.component.morphia.bean;
 
+/**
+ * MongoDB连接池配置对象
+ * 
+ * @author ZHe
+ */
+
 public class MongoDBOptions {
+	
+	
+    // ------------------------------------------------------- Instance Variables
 	
 	private boolean autoConnectRetry;
 	
@@ -23,6 +32,9 @@ public class MongoDBOptions {
 	private int	socketTimeout;
 	
 	private int	threadsAllowedToBlockForConnectionMultiplier;
+	
+	
+    // ------------------------------------------------------- Public Methods
 	
 	/**
 	 * 获取是否自动重连

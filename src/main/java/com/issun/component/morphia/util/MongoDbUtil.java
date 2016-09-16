@@ -1,4 +1,4 @@
-package com.issun.component.morphia.utils;
+package com.issun.component.morphia.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,10 +19,19 @@ import com.mongodb.ServerAddress;
 
 
 /**
- * MongoDbConfig通用工具
+ * MongoDb通用工具
+ * 
+ * @author ZHe
  */
 public class MongoDbUtil {
 
+    // ------------------------------------------------------- Public Methods
+	
+	/**
+	 * 通过mongoDbConfig构造Datastore
+	 * @param mongoDbConfig
+	 * @return
+	 */
 	public static Datastore createDatastore(MongoDBConfig mongoDbConfig) {
 		
 		
@@ -67,6 +76,9 @@ public class MongoDbUtil {
 		
 		return createDatastore(mongoClient,mongoDbConfig.getDbname());
 	}
+	
+	
+    // ------------------------------------------------------- Private Methods
 	
 	/**
 	 * 转换为MongoDB的属性配置

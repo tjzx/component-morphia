@@ -1,4 +1,5 @@
-package com.issun.component.morphia.impl;
+package com.issun.component.morphia.pool;
+
 
 import java.io.File;
 import java.util.HashMap;
@@ -15,44 +16,61 @@ import org.dom4j.io.SAXReader;
 import com.issun.component.morphia.bean.MongoDBConfig;
 import com.issun.component.morphia.bean.MongoDBOptions;
 import com.issun.component.morphia.bean.type.OutputType;
-import com.issun.component.morphia.interfaces.MongoDbConfigSource;
 
 /**
- *Xml的MongoDbConfig数据源(单例，为了只进行一次配置文件的读取)
+ * Xml的MongoDbConfig数据源
+ * 
+ * @author ZHe
  */
-public class XmlMongoDbConfigSource implements MongoDbConfigSource{
+public class MongoDBXml{
 
+	
+    // ------------------------------------------------------- Static Variables
+	
 	/**
 	 * mongodb配置文件名
 	 */
 	private static String CONFIG_NAME = "mongodb.xml";
+	
 	/**
 	 * mongodb配置文件路径
 	 */
 	private static String CONFIG_PATH = "config" + File.separator + "mongod";
+	
 	/**
-	 * 维持的单例
+	 * MongoDB配置对象的Map
+	 * 格式为：datastoreAlias:MongoDBConfig
 	 */
-	private static XmlMongoDbConfigSource xmlMongoDbSource;
+	private static Map<String,MongoDBConfig> mongoDBConfigMap = new HashMap<String, MongoDBConfig>();
 	
 	
-	private Map<String,MongoDBConfig> mongoDBConfigMap;
-	
-	
-	private XmlMongoDbConfigSource(){
-		this.mongoDBConfigMap = new HashMap<String, MongoDBConfig>();
-		this.readXmlConfig();
+	static {
+		loadXml();
 	}
+	
+    // ------------------------------------------------------- public Methods
+	
+	/**
+	 * 获取对应alias的MongoDBConfig配置对象
+	 */
+	public static MongoDBConfig get(String alias) {
+		return mongoDBConfigMap.get(alias);
+	}
+	
+	
+    // ------------------------------------------------------- private Methods
+	
 	
 	/**
 	 * 读取MongoDb配置文件
 	 */
-	private void readXmlConfig() {
+	private static void loadXml() {
+		
 		String classLoaderPath = Thread.currentThread().getContextClassLoader()
 				.getResource(".")
 				.getPath();
 		String mongoXmlFileName = classLoaderPath+
-				File.separator+this.CONFIG_PATH+File.separator+CONFIG_NAME;
+				File.separator+CONFIG_PATH+File.separator+CONFIG_NAME;
 		File mongoXml = new File(mongoXmlFileName);
 		if(!mongoXml.exists()){
 			return;
@@ -185,7 +203,7 @@ public class XmlMongoDbConfigSource implements MongoDbConfigSource{
 	 * @param OutputType 节点值的输出类型
 	 * @return T
 	 */
-	private <T> T getNodeVal(Node node, OutputType outputType) {
+	private static <T> T getNodeVal(Node node, OutputType outputType) {
 		T result = null;
 		
 		String nodeText = ""; 
@@ -214,22 +232,7 @@ public class XmlMongoDbConfigSource implements MongoDbConfigSource{
 		return result;
 	}
 
-	/**
-	 * 获取实例
-	 * @return
-	 */
-	public static MongoDbConfigSource getInstance() {
-		if(null == xmlMongoDbSource){
-			xmlMongoDbSource = new XmlMongoDbConfigSource();
-		}
-		return xmlMongoDbSource;
-	}
-
-	/**
-	 * 获取对应alias的MongoDBConfig配置对象
-	 */
-	public MongoDBConfig get(String alias) {
-		return mongoDBConfigMap.get(alias);
-	}
-
 }
+
+
+

@@ -17,13 +17,13 @@ public class DeptDAOTest {
 	} 
 	
 	
-//	@Test
+	@Test
 	public void testDelete(){
 		deptDAO.delete("8989");
 	}
 	
 	//@Test
-	public void testDeptDAO(){
+	public void testSave(){
 		
 		Dept dept = new Dept();
 		dept.setUnid("8989");
