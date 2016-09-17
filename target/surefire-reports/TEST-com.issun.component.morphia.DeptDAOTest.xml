@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.789" errors="0" skipped="0" tests="1" name="com.issun.component.morphia.DeptDAOTest">
+<testsuite failures="0" time="0.752" errors="0" skipped="0" tests="1" name="com.issun.component.morphia.DeptDAOTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries"/>
@@ -28,7 +28,7 @@
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="https.proxyHost" value="127.0.0.1"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/ZHe/Documents/MyEclipseProfessional2014/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf7687836612511548621.tmp"/>
+    <property name="classworlds.conf" value="/Users/ZHe/Documents/MyEclipseProfessional2014/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3962889215892746787.tmp"/>
     <property name="sun.jnu.encoding" value="EUC_CN"/>
     <property name="java.library.path" value=".:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
     <property name="http.proxyPort" value="6152"/>
@@ -66,5 +66,5 @@
     <property name="https.proxyPort" value="6152"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.789" classname="com.issun.component.morphia.DeptDAOTest" name="testDelete"/>
+  <testcase time="0.752" classname="com.issun.component.morphia.DeptDAOTest" name="testDelete"/>
 </testsuite>
