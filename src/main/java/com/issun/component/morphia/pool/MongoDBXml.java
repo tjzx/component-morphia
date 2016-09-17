@@ -43,6 +43,7 @@ public class MongoDBXml{
 	 */
 	private static Map<String,MongoDBConfig> mongoDBConfigMap = new HashMap<String, MongoDBConfig>();
 	
+    // ----------------------------------------------------- Static Initializer
 	
 	static {
 		loadXml();
