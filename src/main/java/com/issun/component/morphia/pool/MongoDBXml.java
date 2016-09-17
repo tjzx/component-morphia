@@ -28,14 +28,21 @@ public class MongoDBXml{
     // ------------------------------------------------------- Static Variables
 	
 	/**
+	 * classes所在路径
+	 */
+	private static final String CLASSLOADER_PATH = Thread.currentThread().getContextClassLoader()
+			.getResource(".")
+			.getPath();
+	
+	/**
 	 * mongodb配置文件名
 	 */
-	private static String CONFIG_NAME = "mongodb.xml";
+	private static final String CONFIG_NAME = "mongodb.xml";
 	
 	/**
 	 * mongodb配置文件路径
 	 */
-	private static String CONFIG_PATH = "config" + File.separator + "mongod";
+	private static  final String CONFIG_PATH = CLASSLOADER_PATH;
 	
 	/**
 	 * MongoDB配置对象的Map
@@ -46,7 +53,9 @@ public class MongoDBXml{
     // ----------------------------------------------------- Static Initializer
 	
 	static {
-		loadXml();
+		String mongoXmlFileName = 
+				CONFIG_PATH+File.separator+CONFIG_NAME;
+		loadXml(mongoXmlFileName);
 	}
 	
     // ------------------------------------------------------- public Methods
@@ -58,6 +67,15 @@ public class MongoDBXml{
 		return mongoDBConfigMap.get(alias);
 	}
 	
+	/**
+	 * 重新加载MongoDB的XML配置文件
+	 * @return 
+	 */
+	public static void reloadXml(String mongoXmlFileName){
+		mongoDBConfigMap.clear();
+		loadXml(mongoXmlFileName);
+	}
+	
 	
     // ------------------------------------------------------- private Methods
 	
@@ -65,13 +83,8 @@ public class MongoDBXml{
 	/**
 	 * 读取MongoDb配置文件
 	 */
-	private static void loadXml() {
+	private static void loadXml(String mongoXmlFileName) {
 		
-		String classLoaderPath = Thread.currentThread().getContextClassLoader()
-				.getResource(".")
-				.getPath();
-		String mongoXmlFileName = classLoaderPath+
-				File.separator+CONFIG_PATH+File.separator+CONFIG_NAME;
 		File mongoXml = new File(mongoXmlFileName);
 		if(!mongoXml.exists()){
 			return;

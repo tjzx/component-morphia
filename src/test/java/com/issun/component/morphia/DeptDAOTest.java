@@ -9,7 +9,9 @@ import com.issun.component.morphia.bean.Dept;
 
 public class DeptDAOTest {
 	
+	
 	private DeptDAO deptDAO;
+	
 	
 	@Before
 	public void init(){

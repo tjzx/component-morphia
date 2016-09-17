@@ -1,32 +1,15 @@
-对Morphia组件的封装旨在提供一套对Bean的CURD模板操作，这样可以加快开发速度，以及便于维护。
+# Morphia-Conponent
 
-**约束说明：** 这套CURD模板是基于Bean的`unid`(映射到默认的MongoDb主键`_id`)属性进行增删改查的，故要求Bean继承`BeanEntity`抽象类。例如：
+基于Morphia封装，简单、好用的MongoDB的CURD组件。
 
-```java
-package com.issun.component.morphia.bean;
+# Features
 
-import org.mongodb.morphia.annotations.Entity;
+- 提供Model和MongoDB主键的映射
+- 提供通用的MongoDB增删改查模板
 
-@Entity(noClassnameStored = true)
-public class Dept extends BeanEntity{
-	
-	private String name;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-}
-```
+# Quick Start
 
-
-# 使用说明：
-
-## 配置文件
-
-提供一份配置文件mongodb.xml,例如
+**1.提供一份MongoDB的配置文件mongodb.xml,放置于编译文件路径classes**
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -52,12 +35,42 @@ public class Dept extends BeanEntity{
 
 ```
 
-## DAO规范
-
-DAO的实现类要继承MongoDbBaseTemplate<T>抽象类，并在构造函数中进行相关值的设置及初始化，例如
+**2.存储对象继承BeanEntity(MongoDB存储的抽象类,以提供Model的`Unid`同MongoDB的`_id`的映射关系)**
 
 
 ```java
+package com.issun.component.morphia.bean;
+
+import org.mongodb.morphia.annotations.Entity;
+
+@Entity(noClassnameStored = true)
+public class Dept extends BeanEntity{
+	
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+```
+
+**3.Model的DAO实现类继承MongoDbBaseTemplate<T>**
+
+MongoDbBaseTemplate<T>为MongoDB CURD的模板对象，提供相关的通用方法：
+
+- 增 ----》`commonSave`
+- 删 ----》`commonDelete`(通过Unid进行删除)
+- 改 ----》`commonUpdate`
+- 查 ----》`commonGet`(通过Unid进行获取)
+
+但使用这些方法之前需要进行MongoDbBaseTemplate的初始化工作,`setBeanClass`&&`initDatastroe`.
+
+eg.
+
+``````java
 package com.issun.component.morphia;
 
 import com.issun.component.morphia.bean.Dept;
@@ -95,15 +108,8 @@ public class DeptDAOImpl extends MongoDbBaseTemplate<Dept> implements DeptDAO {
 }
 
 ```
-需要说明的是`DATASTORE_ALIAS`值是对应到mongodb.xml配置文件里面对应alias值的MongoDb配置.
 
-## 额外说明
+这里面的`DATASTORE_ALIAS`对应Mongodb.xml里面的alias。
 
-`MongoDbBaseTemplate<T>`抽象类提供相应的CURD方法：
-
-- 增 ----》`commonSave`
-- 删 ----》`commonDelete`(通过Unid进行删除)
-- 改 ----》`commonUpdate`
-- 查 ----》`commonGet`(通过Unid进行获取)
 
 
