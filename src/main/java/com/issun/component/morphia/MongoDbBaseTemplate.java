@@ -15,6 +15,7 @@ import org.mongodb.morphia.query.UpdateResults;
 
 import com.issun.component.morphia.bean.BeanEntity;
 import com.issun.component.morphia.pool.DatastorePool;
+import com.mongodb.DB;
 import com.mongodb.WriteResult;
 
 /**
@@ -55,6 +56,14 @@ public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 
 	protected void setBeanClass(Class<T> beanClass) {
 		this.beanClass = beanClass;
+	}
+	
+	protected Datastore getDatastore() {
+		return datastore;
+	}
+
+	protected void setDatastore(Datastore datastore) {
+		this.datastore = datastore;
 	}
 
 	
@@ -147,6 +156,7 @@ public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 	private UpdateOperations<T> buildUpdateOperation(T beanObj) {
 		
 		UpdateOperations<T> updateOperations = datastore.createUpdateOperations(beanClass);
+		
 		JSONObject jsonObject = JSONObject.fromObject(beanObj);
 		buildUpdateParam(updateOperations,jsonObject);
 		
@@ -165,33 +175,47 @@ public abstract class MongoDbBaseTemplate<T extends BeanEntity> {
 			Iterator itera = jsonObject.keys();
 			while(itera.hasNext()){
 				String fieldName = (String)itera.next();
-				Object fieldObj = jsonObject.get(fieldName);
+				Object fieldValue = jsonObject.get(fieldName);
 				
 				if(BeanEntity.UNID_FIELD.equalsIgnoreCase(fieldName)){
 					continue;
 				}
 				
-				if(fieldObj instanceof JSONNull){
+				if(fieldValue instanceof JSONNull){
 					continue;
 				}
 				
-				if(fieldObj instanceof JSONObject){
-					buildUpdateParam(updateOperations, jsonObject);
-				}else if(fieldObj instanceof JSONArray){
-					JSONArray jsonArray = (JSONArray)fieldObj;
+				if(fieldValue instanceof JSONObject){
+					buildUpdateParam(updateOperations, (JSONObject)fieldValue);
+				}else if(fieldValue instanceof JSONArray){
+					JSONArray jsonArray = (JSONArray)fieldValue;
 					Iterator arrItera = jsonArray.iterator();
 					while(arrItera.hasNext()){
-						JSONObject childJSONObj = (JSONObject) arrItera.next();
-						buildUpdateParam(updateOperations, childJSONObj);
+						JSONObject itemJsonObject = (JSONObject) arrItera.next();
+						buildUpdateParam(updateOperations, itemJsonObject);
 					}
 				}else {
-					updateOperations.set(fieldName, (String)fieldObj);
+					updateOperations.set(fieldName, String.valueOf(fieldValue));
 				}
 			}
 		}
 		
 	}
-
 	
+	/**
+	 * 判断collection是否存在
+	 * @param tableName
+	 * @return Boolean
+	 */
+	protected boolean collectionExistCheck(String tableName){
+		
+		DB db = this.datastore.getDB();
+		
+		if(null == db){
+			return false;
+		}
+		
+		return db.collectionExists(tableName);
+	}
 	
 }

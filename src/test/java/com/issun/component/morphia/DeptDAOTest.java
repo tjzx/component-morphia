@@ -1,5 +1,8 @@
 package com.issun.component.morphia;
 
+import java.util.List;
+
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.junit.Before;
@@ -18,13 +21,7 @@ public class DeptDAOTest {
 		deptDAO = new DeptDAOImpl();
 	} 
 	
-	
 	@Test
-	public void testDelete(){
-		deptDAO.delete("8989");
-	}
-	
-	//@Test
 	public void testSave(){
 		
 		Dept dept = new Dept();
@@ -32,10 +29,23 @@ public class DeptDAOTest {
 		dept.setName("事业部");
 		
 		deptDAO.save(dept);
-		
 	}
 	
-	//@Test
+	
+	@Test
+	public void testGet(){
+		Dept dept = deptDAO.get("8989");
+		System.out.println(JSONObject.fromObject(dept));
+	}
+	
+	@Test
+	public void testGetByName(){
+		List<Dept> depts = deptDAO.getDeptByName("事业部");
+		System.out.println(JSONArray.fromObject(depts));
+	}
+	
+	
+	@Test
 	public void testUpdate(){
 		Dept dept = new Dept();
 		dept.setUnid("8989");
@@ -43,10 +53,9 @@ public class DeptDAOTest {
 		deptDAO.update(dept);
 	}
 	
-	//@Test
-	public void testGet(){
-		Dept dept = deptDAO.get("8989");
-		System.out.println(JSONObject.fromObject(dept));
+	@Test
+	public void testDelete(){
+		deptDAO.delete("8989");
 	}
 	
 	

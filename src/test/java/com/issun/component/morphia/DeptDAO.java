@@ -1,5 +1,7 @@
 package com.issun.component.morphia;
 
+import java.util.List;
+
 import com.issun.component.morphia.bean.Dept;
 
 public interface DeptDAO {
@@ -11,5 +13,7 @@ public interface DeptDAO {
 	boolean delete(String unid);
 	
 	Dept get(String unid);
+	
+	List<Dept> getDeptByName(String name);
 
 }

@@ -5,6 +5,8 @@ import org.mongodb.morphia.annotations.Entity;
 @Entity(noClassnameStored = true)
 public class Dept extends BeanEntity{
 	
+	public static String NAME = "name";
+	
 	private String name;
 	
 	public String getName() {

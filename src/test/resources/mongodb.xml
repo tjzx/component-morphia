@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns1:mongo-config xmlns:ns1="http://www.ccip.com/mongo-config"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.ccip.com/mongo-config mongodb.xsd">
+<mongo-config>
 	<mongo>
 		<alias>orgDb</alias>
 		<address>127.0.0.1</address>
@@ -17,4 +15,5 @@
 		<autoConnectRetry>true</autoConnectRetry>
 		<socketKeepAlive>true</socketKeepAlive>
 	</mongo>
-</ns1:mongo-config>
+</mongo-config>
+
