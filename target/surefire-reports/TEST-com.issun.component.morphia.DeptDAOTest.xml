@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.752" errors="0" skipped="0" tests="1" name="com.issun.component.morphia.DeptDAOTest">
+<testsuite failures="0" time="1.239" errors="0" skipped="0" tests="5" name="com.issun.component.morphia.DeptDAOTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/ZHe/MyEclipseProfessional2014/component-morphia"/>
+    <property name="user.dir" value="/Users/ZHe/MyEclipseProfessional2014/component"/>
     <property name="java.runtime.version" value="1.6.0_65-b14-468-11M4833"/>
     <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed"/>
@@ -28,7 +28,7 @@
     <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="https.proxyHost" value="127.0.0.1"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/ZHe/Documents/MyEclipseProfessional2014/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf3962889215892746787.tmp"/>
+    <property name="classworlds.conf" value="/Users/ZHe/MyEclipseProfessional2014/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf7879126094200377398.tmp"/>
     <property name="sun.jnu.encoding" value="EUC_CN"/>
     <property name="java.library.path" value=".:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
     <property name="http.proxyPort" value="6152"/>
@@ -46,7 +46,7 @@
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -B install"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -B -s /Users/ZHe/apache-maven-3.2.5/conf/settings.xml install"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="zh"/>
     <property name="awt.toolkit" value="apple.awt.CToolkit"/>
@@ -66,5 +66,9 @@
     <property name="https.proxyPort" value="6152"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.752" classname="com.issun.component.morphia.DeptDAOTest" name="testDelete"/>
+  <testcase time="1.087" classname="com.issun.component.morphia.DeptDAOTest" name="testSave"/>
+  <testcase time="0.127" classname="com.issun.component.morphia.DeptDAOTest" name="testGet"/>
+  <testcase time="0.009" classname="com.issun.component.morphia.DeptDAOTest" name="testGetByName"/>
+  <testcase time="0.008" classname="com.issun.component.morphia.DeptDAOTest" name="testUpdate"/>
+  <testcase time="0.008" classname="com.issun.component.morphia.DeptDAOTest" name="testDelete"/>
 </testsuite>
